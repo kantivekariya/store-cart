@@ -1,3 +1,4 @@
+import { Grid } from "@mui/material";
 import { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import Cards from "../../common/Cards/Cards";
@@ -17,9 +18,17 @@ const ProductsList = () => {
   }, [category]);
   return (
     <>
-      {productsList.map((item) => (
-        <Cards key={item.id} />
-      ))}
+      <Grid
+        container
+        spacing={{ xs: 2, md: 3 }}
+        columns={{ xs: 4, sm: 8, md: 12 }}
+      >
+        {productsList.map((item) => (
+          <Grid item xs={2} sm={4} md={4}>
+            <Cards key={item.id} {...item} />
+          </Grid>
+        ))}
+      </Grid>
     </>
   );
 };

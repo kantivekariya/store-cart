@@ -1,6 +1,5 @@
 import { FormControl, Grid, InputLabel, MenuItem, Select } from "@mui/material";
 import TablePagination from "@mui/material/TablePagination";
-import usePagination from "@mui/material/usePagination/usePagination";
 import { SetStateAction, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import Cards from "../../common/Cards/Cards";
@@ -12,7 +11,6 @@ import {
 
 const ProductsList = () => {
   const [page, setPage] = useState(0);
-  const PER_PAGE = 5;
   const { category } = useParams<{ category: string }>();
   const [sortedValue, setSortedValue] = useState("desc");
   const [rowsPerPage, setRowsPerPage] = useState(5);
@@ -25,6 +23,7 @@ const ProductsList = () => {
 
   const handleChange = (event: any) => {
     setSortedValue(event.target.value);
+    
     // @ts-ignore
     dispatch(getBySpecificCategory(category, sortedValue));
   };
@@ -77,9 +76,8 @@ const ProductsList = () => {
 
       <Grid sx={{ textAlign: "center", m: 5 }}>
         <TablePagination
-          rowsPerPageOptions={[5]}
           component="div"
-          count={productsList.length}
+          count={productsList?.length}
           page={page}
           onPageChange={onHandleChangePage}
           rowsPerPage={rowsPerPage}

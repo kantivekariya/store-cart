@@ -20,24 +20,3 @@ export const setLocalState = (key: string, val: any) => {
   }
 };
 
-export const loadUserFromLocal = () => {
-  try {
-    const access_token = getLocalState("access_token");
-    console.log("access_token", access_token)
-    if (access_token) {
-      // authorize
-      return {
-        isAuthenticated: true,
-      };
-    } else {
-      // unauth
-      return {
-        isAuthenticated: false,
-      };
-    }
-  } catch (err) {
-    return {
-      isAuthenticated: false,
-    };
-  }
-};

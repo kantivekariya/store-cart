@@ -1,5 +1,6 @@
 import { FormControl, Grid, InputLabel, MenuItem, Select } from "@mui/material";
-import { useEffect, useState } from "react";
+import TablePagination from "@mui/material/TablePagination";
+import { SetStateAction, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import Cards from "../../common/Cards/Cards";
 import { getBySpecificCategory } from "../../reduce/action/products/ProductsAction";
@@ -9,8 +10,10 @@ import {
 } from "../../utils/hooks/dispatchHooks";
 
 const ProductsList = () => {
+  const [page, setPage] = useState(0);
   const { category } = useParams<{ category: string }>();
   const [sortedValue, setSortedValue] = useState("desc");
+  const [rowsPerPage, setRowsPerPage] = useState(5);
   const dispatch = useAppDispatch();
   const { productsList } = useAppSelector((state) => state.productList);
   useEffect(() => {
@@ -20,13 +23,28 @@ const ProductsList = () => {
 
   const handleChange = (event: any) => {
     setSortedValue(event.target.value);
+    
     // @ts-ignore
     dispatch(getBySpecificCategory(category, sortedValue));
   };
 
+  const onHandleChangePage = (
+    event: React.MouseEvent<HTMLButtonElement> | null,
+    newPage: number
+  ) => {
+    setPage(newPage);
+  };
+
+  const handleChangeRowsPerPage = (
+    event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
+    setRowsPerPage(parseInt(event.target.value, 10));
+    setPage(0);
+  };
+
   return (
     <>
-      <Grid columns={{ sm: 4 }} sx={{ textAlign: "end" , p:5}}>
+      <Grid columns={{ sm: 4 }} sx={{ textAlign: "end", p: 5 }}>
         <FormControl sx={{ width: 240 }}>
           <InputLabel id="demo-simple-select-label">Sort By</InputLabel>
           <Select
@@ -47,11 +65,24 @@ const ProductsList = () => {
         spacing={{ xs: 2, md: 3 }}
         columns={{ xs: 4, sm: 8, md: 12 }}
       >
-        {productsList.map((item) => (
-          <Grid item xs={2} sm={4} md={4}>
-            <Cards key={item.id} {...item} />
-          </Grid>
-        ))}
+        {productsList
+          .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+          .map((item) => (
+            <Grid item xs={2} sm={4} md={4}>
+              <Cards key={item.id} {...item} />
+            </Grid>
+          ))}
+      </Grid>
+
+      <Grid sx={{ textAlign: "center", m: 5 }}>
+        <TablePagination
+          component="div"
+          count={productsList?.length}
+          page={page}
+          onPageChange={onHandleChangePage}
+          rowsPerPage={rowsPerPage}
+          onRowsPerPageChange={handleChangeRowsPerPage}
+        />
       </Grid>
     </>
   );

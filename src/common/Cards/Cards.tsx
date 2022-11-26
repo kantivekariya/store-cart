@@ -6,6 +6,8 @@ import {
   CardMedia,
   Typography,
 } from "@mui/material";
+import { addToCart, removeItem } from "../../reduce/features/cartSlice";
+import { useAppDispatch } from "../../utils/hooks/dispatchHooks";
 
 export type CartItemType = {
   id: number;
@@ -18,12 +20,14 @@ export type CartItemType = {
 };
 
 const Cards = ({
+  id,
   title,
   price,
   description,
   category,
   image,
 }: CartItemType) => {
+  const dispatch = useAppDispatch();
   return (
     <Card
       sx={{
@@ -59,8 +63,18 @@ const Cards = ({
         <Typography variant="h4">$ {price}</Typography>
       </CardContent>
       <CardActions sx={{ display: "flex", justifyContent: "space-between" }}>
-        <Button size="small">Add to Item</Button>
-        <Button size="small">Remove Cart Item</Button>
+        <Button
+          size="small"
+          onClick={() => dispatch(addToCart({ id, title, image, price }))}
+        >
+          Add to Item
+        </Button>
+        <Button
+          size="small"
+          onClick={() => dispatch(removeItem({ id, title, image, price }))}
+        >
+          Remove Cart Item
+        </Button>
       </CardActions>
     </Card>
   );

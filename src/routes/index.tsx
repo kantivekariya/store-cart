@@ -30,7 +30,6 @@ const RootRoutes = () => {
       <Route path="/login" element={<Login />} />
       <Route path="/" element={<PrivateRoute />}>
         <Route path="/" element={<Layout />}>
-          <Route index element={<Dashboard />} />
           <Route path=":category" element={<ProductsList />} />
         </Route>
       </Route>

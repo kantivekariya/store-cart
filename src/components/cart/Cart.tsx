@@ -1,12 +1,15 @@
 import Cards from "../../common/Cards/Cards";
-import { Grid } from "@mui/material";
+import { Grid, Button } from "@mui/material";
 import { useAppSelector } from "../../utils/hooks/dispatchHooks";
+import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
+import { useNavigate } from "react-router-dom";
 
 const Cart = () => {
+  const navigate = useNavigate();
   const { cart } = useAppSelector((state) => state.cartReducer);
   return (
     <>
-      <Grid columns={{ sm: 4 }} sx={{ textAlign: "end", p: 5 }}>
+      <Grid columns={{ sm: 4 }} sx={{ p: 5 }}>
         {cart.length > 0 ? (
           <Grid
             container
@@ -21,7 +24,19 @@ const Cart = () => {
           </Grid>
         ) : (
           <>
-            <h1>Cart Empty</h1>
+            <Grid
+              sx={{
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+              }}
+            >
+              <div style={{ textAlign: "center" }}>
+                <AddShoppingCartIcon sx={{ fontSize: 100 }} />
+                <h1>Cart Empty</h1>
+                <Button onClick={() => navigate("/category/")}>Browse Items</Button>
+              </div>
+            </Grid>
           </>
         )}
       </Grid>

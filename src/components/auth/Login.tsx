@@ -11,22 +11,31 @@ import { Navigate, useNavigate } from "react-router-dom";
 import { useAppDispatch } from "../../utils/hooks/dispatchHooks";
 import { userLogin } from "../../reduce/action/auth/AuthAction";
 import { getLocalState } from "../../utils/helpers";
+import { useState } from "react";
 
 const theme = createTheme();
 
 const Login = () => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
+  const [error, setError] = useState({
+    username: "",
+    password: "",
+  });
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    const formData = {
-      username: data.get("username"),
-      password: data.get("password"),
-    };
-    // @ts-ignore
-    await dispatch(userLogin(formData));
-    await navigate("/");
+    if (data.get("username")?.toString().trim() === "") {
+      setError({ ...error, username: "Invalid" });
+    } else {
+      const formData = {
+        username: data.get("username"),
+        password: data.get("password"),
+      };
+      // @ts-ignore
+      await dispatch(userLogin(formData));
+      await navigate("/");
+    }
   };
 
   if (getLocalState("access_token")) {

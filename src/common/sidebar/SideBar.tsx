@@ -25,11 +25,12 @@ const SideBar = () => {
 
   useEffect(() => {
     dispatch(getAllCategories());
-    if (categoryList?.[0]) navigate(`${categoryList[0]}`, { replace: true });
+    if (categoryList?.[0])
+      navigate(`/category/${categoryList[0]}`, { replace: true });
   }, [dispatch, categoryList?.[0]]);
 
   const onHandlePushUrlParams = (params: string) => {
-    navigate(params, { replace: true });
+    navigate(`/category/${params}`, { replace: true });
   };
 
   return (

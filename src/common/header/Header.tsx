@@ -33,7 +33,7 @@ const Header = () => {
           </Typography>
         </Grid>
         <Grid item sx={{ display: "flex" }}>
-          <Typography variant="h6" sx={{ pr: 2 }} noWrap component="div">
+          <Typography variant="h6" sx={{ pr: 2 }} noWrap component="div" onClick={()=> navigate('/cart')}>
             <ShoppingCartIcon />
             {getTotalQuantity()}
           </Typography>

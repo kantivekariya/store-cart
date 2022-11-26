@@ -27,9 +27,8 @@ const Cards = ({
   return (
     <Card
       sx={{
-        maxWidth: 300,
+        maxWidth: 400,
         pt: 2,
-        m: 2,
         boxShadow: 3,
         border: "1px solid lightblue",
       }}

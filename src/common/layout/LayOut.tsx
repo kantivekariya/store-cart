@@ -6,7 +6,7 @@ import SideBar from "../sidebar/SideBar";
 
 const Layout = () => {
   return (
-    <Box sx={{ display: "flex" }}>
+    <Box sx={{ display: "flex", ml:3, mr:3 }}>
       <CssBaseline />
       <Header />
       <SideBar />

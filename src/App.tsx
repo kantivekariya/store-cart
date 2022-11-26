@@ -1,25 +1,24 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { BrowserRouter } from "react-router-dom";
+import { PersistGate } from "redux-persist/integration/react";
+import { Provider } from "react-redux";
+import { ToastContainer } from "react-toastify";
 
+import RootRoutes from "./routes";
+import { persistStoreData, store } from "./reduce/store";
+import "./App.css";
+// import { onLocalLogin } from "./reduce/action/auth/AuthAction";
+
+// store.dispatch(onLocalLogin());
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <BrowserRouter>
+      <PersistGate loading={null} persistor={persistStoreData}>
+        <Provider store={store}>
+          <RootRoutes />
+        </Provider>
+        <ToastContainer />
+      </PersistGate>
+    </BrowserRouter>
   );
 }
 

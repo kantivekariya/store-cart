@@ -22,11 +22,9 @@ export const setLocalState = (key: string, val: any) => {
 
 export const loadUserFromLocal = () => {
   try {
-    const expires_in = getLocalState("expires_in");
-    const expires_at = getLocalState("expires_at");
     const access_token = getLocalState("access_token");
-    // @ts-ignore
-    if (expires_in && access_token && new Date().getTime() < expires_at) {
+    console.log("access_token", access_token)
+    if (access_token) {
       // authorize
       return {
         isAuthenticated: true,

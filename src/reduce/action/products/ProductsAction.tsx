@@ -23,7 +23,7 @@ export const getAllCategories = () => async (dispatch: any) => {
 };
 
 export const getBySpecificCategory =
-  (apiData: string, sortedValue: string) => async (dispatch: any) => {
+  (apiData: string, sortedValue: string = 'desc') => async (dispatch: any) => {
     dispatch(productsListLoading());
     try {
       const res = await ProductsServices.getBySpecificCategory(apiData, sortedValue);

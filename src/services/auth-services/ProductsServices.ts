@@ -4,7 +4,7 @@ import { apiService } from "../apiServices";
 const ProductsServices = {
   getAllCategories: () =>
     apiService.getData(PRODUCTS_URLS.PRODUCTS_CATEGORY_URL),
-  getBySpecificCategory: (apiData: string, sortedValue: string = "desc") =>
+  getBySpecificCategory: (apiData: string, sortedValue: string) =>
     apiService.getData(
       `${PRODUCTS_URLS.CATEGORY_URL}/${apiData}?sort=${sortedValue}`
     ),

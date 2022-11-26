@@ -14,13 +14,7 @@ const Header = () => {
     navigate("/login");
   };
 
-  const getTotalQuantity = () => {
-    let total = 0;
-    cart.forEach((item:any) => {
-      total += item.quantity;
-    });
-    return total;
-  };
+  
   return (
     <AppBar
       position="fixed"
@@ -33,9 +27,17 @@ const Header = () => {
           </Typography>
         </Grid>
         <Grid item sx={{ display: "flex" }}>
-          <Typography variant="h6" sx={{ pr: 2 }} noWrap component="div" onClick={()=> navigate('/cart')}>
+          <Typography
+            variant="h6"
+            sx={{ pr: 3, position: "relative", cursor: "pointer" }}
+            noWrap
+            component="div"
+            onClick={() => navigate("/cart")}
+          >
             <ShoppingCartIcon />
-            {getTotalQuantity()}
+            {cart.length > 0 && (
+              <span className="cart-count">{cart.length}</span>
+            )}
           </Typography>
           <Typography
             onClick={onHandleLogOut}

@@ -1,7 +1,10 @@
 import { useEffect } from "react";
 import { Navigate, Route, Routes, useNavigate } from "react-router-dom";
-import Login from "../components/Auth/Login";
+import Header from "../common/header/Header";
+import Layout from "../common/layout/LayOut";
+import Login from "../components/auth/Login";
 import Dashboard from "../components/dashboard/Dashboard";
+import ProductsList from "../components/products/Products";
 import { getLocalState } from "../utils/helpers";
 import PrivateRoute from "./PrivateRoute";
 
@@ -33,7 +36,13 @@ const RootRoutes = () => {
     <Routes>
       <Route path="/login" element={<Login />} />
       <Route path="/" element={<PrivateRoute />}>
-        <Route index element={<Dashboard />} />
+        <Route path="/" element={<Layout />}>
+          <Route path="/">
+            <Route index element={<Dashboard />} />
+            <Route path="products-list" element={<ProductsList />} />
+            <Route path="cart" element={<Dashboard />} />
+          </Route>
+        </Route>
       </Route>
       <Route path="*" element={<Navigate to="/" replace />} />
     </Routes>

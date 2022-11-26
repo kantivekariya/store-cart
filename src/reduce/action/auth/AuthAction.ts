@@ -13,8 +13,10 @@ export const userLogin = (apiData: LoginIProps) => async (dispatch: any) => {
     const res = await AuthApiServices.userLogin(apiData);
     console.log(res);
     saveTokens({ access_token: res?.data?.token });
-    toast.success(res?.data?.message);
+    toast.success('Successfully Login');
   } catch (error) {
+    // @ts-ignore
+    toast.error(error?.response?.data);
     return Promise.reject(error);
   }
 };

@@ -1,15 +1,5 @@
-// src/redux/cartSlice.js
+// @ts-nocheck
 import { createSlice } from "@reduxjs/toolkit";
-
-export type CartItemType = {
-  id: number;
-  category: string;
-  description: string;
-  image: string;
-  price: number;
-  title: string;
-  quantity: number;
-};
 
 const cartSlice = createSlice({
   name: "cart",
@@ -22,27 +12,20 @@ const cartSlice = createSlice({
         (item: any) => item.id === action.payload.id
       );
       if (itemInCart) {
-        // @ts-ignore
         itemInCart.quantity++;
       } else {
-        // @ts-ignore
         state.cart.push({ ...action.payload, quantity: 1 });
       }
     },
     incrementQuantity: (state, action) => {
       const item = state.cart.find((item: any) => item.id === action.payload);
-
-      // @ts-ignore
       item.quantity++;
     },
     decrementQuantity: (state, action) => {
       const item = state.cart.find((item: any) => item.id === action.payload);
-      // @ts-ignore
       if (item.quantity === 1) {
-        // @ts-ignore
         item.quantity = 1;
       } else {
-        // @ts-ignore
         item.quantity--;
       }
     },

@@ -4,17 +4,20 @@ import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import { useNavigate } from "react-router-dom";
-import { useAppSelector } from "../../utils/hooks/dispatchHooks";
+import {
+  useAppDispatch,
+  useAppSelector,
+} from "../../utils/hooks/dispatchHooks";
 const drawerWidth = 240;
 const Header = () => {
   const navigate = useNavigate();
+  const dispatch = useAppDispatch();
   const { cart } = useAppSelector((state) => state.cartReducer);
   const onHandleLogOut = () => {
     localStorage.clear();
     navigate("/login");
   };
 
-  
   return (
     <AppBar
       position="fixed"

@@ -69,10 +69,7 @@ const Cards = ({
         >
           Add to Item
         </Button>
-        <Button
-          size="small"
-          onClick={() => dispatch(removeItem({ id, title, image, price }))}
-        >
+        <Button size="small" onClick={() => dispatch(removeItem(id))}>
           Remove Cart Item
         </Button>
       </CardActions>

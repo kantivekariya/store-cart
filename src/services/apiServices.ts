@@ -9,30 +9,6 @@ const instance = axios.create({
 /* Store requests */
 const sourceRequest: Record<string, any> = {};
 
-/* Add a request interceptor */
-instance.interceptors.request.use(
-  async (request: any) => {
-    const access_token = getLocalState("access_token");
-
-    if (access_token) {
-      request.headers.common["authorization"] = access_token;
-    }
-
-    /* If the application exists cancel */
-    if (sourceRequest[request.url]) {
-      sourceRequest[request.url].cancel("Previous same call cancellation");
-    }
-
-    /* Store or update application token */
-    const controller = new AbortController();
-    controller.abort();
-
-    return request;
-  },
-  (error) => {
-    return Promise.reject(error);
-  }
-);
 
 export const apiService = {
   request(config = {}) {

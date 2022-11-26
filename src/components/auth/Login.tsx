@@ -7,9 +7,10 @@ import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import { useNavigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 import { useAppDispatch } from "../../utils/hooks/dispatchHooks";
-import { userLogin, LoginIProps } from "../../reduce/action/auth/AuthAction";
+import { userLogin } from "../../reduce/action/auth/AuthAction";
+import { getLocalState } from "../../utils/helpers";
 
 const theme = createTheme();
 
@@ -26,8 +27,11 @@ const Login = () => {
     // @ts-ignore
     await dispatch(userLogin(formData));
     await navigate("/");
-    console.log({});
   };
+
+  if (getLocalState("access_token")) {
+    return <Navigate to="/" replace />;
+  }
 
   return (
     <ThemeProvider theme={theme}>

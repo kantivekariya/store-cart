@@ -11,7 +11,6 @@ export interface LoginIProps {
 export const userLogin = (apiData: LoginIProps) => async (dispatch: any) => {
   try {
     const res = await AuthApiServices.userLogin(apiData);
-    console.log(res);
     saveTokens({ access_token: res?.data?.token });
     toast.success('Successfully Login');
   } catch (error) {

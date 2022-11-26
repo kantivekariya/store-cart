@@ -25,23 +25,14 @@ const RootRoutes = () => {
     };
   }, []);
 
-  useEffect(() => {
-    const isToken = getLocalState("access_token");
-    if (isToken) {
-      navigate("/", { replace: true });
-    }
-  }, [navigate]);
-
   return (
     <Routes>
       <Route path="/login" element={<Login />} />
       <Route path="/" element={<PrivateRoute />}>
         <Route path="/" element={<Layout />}>
-          <Route path="/">
-            <Route index element={<Dashboard />} />
-            <Route path="products-list" element={<ProductsList />} />
-            <Route path="cart" element={<Dashboard />} />
-          </Route>
+          <Route index element={<Dashboard />} />
+          <Route path="products-list" element={<ProductsList />} />
+          <Route path="cart" element={<Dashboard />} />
         </Route>
       </Route>
       <Route path="*" element={<Navigate to="/" replace />} />

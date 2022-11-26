@@ -1,5 +1,14 @@
 import ProductsServices from "../../../services/auth-services/ProductsServices";
-import { categoryFailure, categoryLoading, categorySuccess } from "../../features/ProductSlice";
+import {
+  productsListFailure,
+  productsListLoading,
+  productsListSuccess,
+} from "../../features/ProductDetailsSlice";
+import {
+  categoryFailure,
+  categoryLoading,
+  categorySuccess,
+} from "../../features/ProductSlice";
 
 /* user login api's */
 export const getAllCategories = () => async (dispatch: any) => {
@@ -12,3 +21,15 @@ export const getAllCategories = () => async (dispatch: any) => {
     return Promise.reject(error);
   }
 };
+
+export const getBySpecificCategory =
+  (apiData: string) => async (dispatch: any) => {
+    dispatch(productsListLoading());
+    try {
+      const res = await ProductsServices.getBySpecificCategory(apiData);
+      dispatch(productsListSuccess(res.data));
+    } catch (error) {
+      dispatch(productsListFailure(error as string));
+      return Promise.reject(error);
+    }
+  };

@@ -7,4 +7,5 @@ export const AUTH_URLS = {
 
 export const PRODUCTS_URLS = {
   PRODUCTS_CATEGORY_URL: `${BASE_URL}products/categories`,
+  CATEGORY_URL: `${BASE_URL}products/category`,
 };

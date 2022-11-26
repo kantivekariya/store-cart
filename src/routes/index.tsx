@@ -31,8 +31,7 @@ const RootRoutes = () => {
       <Route path="/" element={<PrivateRoute />}>
         <Route path="/" element={<Layout />}>
           <Route index element={<Dashboard />} />
-          <Route path="products-list" element={<ProductsList />} />
-          <Route path="cart" element={<Dashboard />} />
+          <Route path=":category" element={<ProductsList />} />
         </Route>
       </Route>
       <Route path="*" element={<Navigate to="/" replace />} />

@@ -23,10 +23,10 @@ export const getAllCategories = () => async (dispatch: any) => {
 };
 
 export const getBySpecificCategory =
-  (apiData: string) => async (dispatch: any) => {
+  (apiData: string, sortedValue: string) => async (dispatch: any) => {
     dispatch(productsListLoading());
     try {
-      const res = await ProductsServices.getBySpecificCategory(apiData);
+      const res = await ProductsServices.getBySpecificCategory(apiData, sortedValue);
       dispatch(productsListSuccess(res.data));
     } catch (error) {
       dispatch(productsListFailure(error as string));

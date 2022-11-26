@@ -1,5 +1,3 @@
-import * as React from "react";
-import Grid from "@mui/material/Grid";
 import {
   Button,
   Card,
@@ -27,25 +25,43 @@ const Cards = ({
   image,
 }: CartItemType) => {
   return (
-    <Card sx={{ maxWidth: 300, pt: 5 }}>
+    <Card
+      sx={{
+        maxWidth: 300,
+        pt: 2,
+        m: 2,
+        boxShadow: 3,
+        border: "1px solid lightblue",
+      }}
+    >
       <CardMedia
         component="img"
-        height="140"
+        height="500"
         image={image}
         alt="green iguana"
       />
       <CardContent>
-        <Typography gutterBottom variant="h5" component="div">
+        <Typography
+          gutterBottom
+          variant="h5"
+          component="div"
+          sx={{ height: 150 }}
+        >
           {title}
         </Typography>
-        <Typography variant="body2" color="text.secondary" component="div">
+        <Typography
+          variant="body2"
+          color="text.secondary"
+          component="div"
+          sx={{ height: 140, overflow: "hidden" }}
+        >
           {description}
         </Typography>
         <Typography variant="h4">$ {price}</Typography>
       </CardContent>
-      <CardActions>
-        <Button size="small">Share</Button>
-        <Button size="small">Learn More</Button>
+      <CardActions sx={{ display: "flex", justifyContent: "space-between" }}>
+        <Button size="small">Add to Item</Button>
+        <Button size="small">Remove Cart Item</Button>
       </CardActions>
     </Card>
   );

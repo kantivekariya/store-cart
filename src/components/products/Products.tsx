@@ -1,5 +1,5 @@
-import { Grid } from "@mui/material";
-import { useEffect } from "react";
+import { FormControl, Grid, InputLabel, MenuItem, Select } from "@mui/material";
+import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import Cards from "../../common/Cards/Cards";
 import { getBySpecificCategory } from "../../reduce/action/products/ProductsAction";
@@ -10,14 +10,38 @@ import {
 
 const ProductsList = () => {
   const { category } = useParams<{ category: string }>();
+  const [sortedValue, setSortedValue] = useState("desc");
   const dispatch = useAppDispatch();
   const { productsList } = useAppSelector((state) => state.productList);
   useEffect(() => {
     // @ts-ignore
     if (category) dispatch(getBySpecificCategory(category));
   }, [category]);
+
+  const handleChange = (event: any) => {
+    setSortedValue(event.target.value);
+    // @ts-ignore
+    dispatch(getBySpecificCategory(category, sortedValue));
+  };
+
   return (
     <>
+      <Grid columns={{ sm: 4 }} sx={{ textAlign: "end" , p:5}}>
+        <FormControl sx={{ width: 240 }}>
+          <InputLabel id="demo-simple-select-label">Sort By</InputLabel>
+          <Select
+            labelId="demo-simple-select-label"
+            id="demo-simple-select"
+            value={sortedValue}
+            label="Sort By"
+            onChange={(event) => handleChange(event)}
+          >
+            <MenuItem value={`desc`}>Desc</MenuItem>
+            <MenuItem value={"asce"}>Asce</MenuItem>
+          </Select>
+        </FormControl>
+      </Grid>
+
       <Grid
         container
         spacing={{ xs: 2, md: 3 }}
